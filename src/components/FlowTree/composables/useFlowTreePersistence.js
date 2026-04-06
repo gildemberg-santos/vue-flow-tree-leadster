@@ -1,5 +1,5 @@
 import { ref, watch } from 'vue'
-import { sanitizeEdges } from '../utils/flowValidator'
+import { sanitizeEdges, validateFlow } from '../utils/flowValidator'
 import { DEFAULT_NODES, DEFAULT_EDGES } from './useFlowTreeState'
 import { useSnapshot } from './useSnapshot'
 import { useFlowLoader } from './useFlowLoader'
@@ -48,7 +48,6 @@ export function useFlowTreePersistence({ nodes, edges, maxLevels, onSave, onLoad
 
   async function manualSave() {
     if (isSaving) return
-    const { validateFlow } = await import('../utils/flowValidator')
     const cleanEdges = sanitizeEdges(nodes.value, edges.value, maxLevels)
     edges.value = cleanEdges
     const result = validateFlow(nodes.value, cleanEdges, maxLevels)
@@ -67,7 +66,6 @@ export function useFlowTreePersistence({ nodes, edges, maxLevels, onSave, onLoad
 
   async function autoSave() {
     if (!snapshot.isReady() || !snapshot.hasChanges() || isSaving) return
-    const { validateFlow } = await import('../utils/flowValidator')
     const result = validateFlow(nodes.value, edges.value, maxLevels)
     if (!result.valid) {
       saveStatus.value = 'error'
