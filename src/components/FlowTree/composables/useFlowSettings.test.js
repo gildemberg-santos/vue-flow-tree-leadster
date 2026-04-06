@@ -1,5 +1,9 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { useFlowSettings } from './useFlowSettings'
+
+vi.mock('../../../../package.json', () => ({
+  version: '1.0.0'
+}))
 
 beforeEach(() => {
   localStorage.clear()
@@ -12,6 +16,7 @@ describe('useFlowSettings', () => {
       expect(settings.value).toEqual({
         showValidationPanel: true,
         showControls: true,
+        lastVersionSeen: '1.0.0',
       })
     })
 
@@ -33,6 +38,7 @@ describe('useFlowSettings', () => {
       expect(settings.value).toEqual({
         showValidationPanel: true,
         showControls: true,
+        lastVersionSeen: '1.0.0',
       })
     })
   })
@@ -63,6 +69,37 @@ describe('useFlowSettings', () => {
       saveSettings()
       const stored = JSON.parse(localStorage.getItem('vft-settings'))
       expect(stored).toMatchObject({ showValidationPanel: false, showControls: false })
+    })
+  })
+
+  describe('hasNewVersion', () => {
+    it('retorna false quando é primeira vez (lastVersionSeen null)', () => {
+      localStorage.setItem('vft-settings', JSON.stringify({ lastVersionSeen: null }))
+      const { hasNewVersion } = useFlowSettings()
+      expect(hasNewVersion.value).toBe(false)
+    })
+
+    it('retorna false quando versão atual é igual à salva', () => {
+      localStorage.setItem('vft-settings', JSON.stringify({ lastVersionSeen: '1.0.0' }))
+      const { hasNewVersion } = useFlowSettings()
+      expect(hasNewVersion.value).toBe(false)
+    })
+
+    it('retorna true quando versão salva é diferente da atual', () => {
+      localStorage.setItem('vft-settings', JSON.stringify({ lastVersionSeen: '0.9.0' }))
+      const { hasNewVersion } = useFlowSettings()
+      expect(hasNewVersion.value).toBe(true)
+    })
+  })
+
+  describe('dismissVersionNotification', () => {
+    it('atualiza lastVersionSeen e define hasNewVersion como false', () => {
+      localStorage.setItem('vft-settings', JSON.stringify({ lastVersionSeen: '0.9.0' }))
+      const { hasNewVersion, dismissVersionNotification, settings } = useFlowSettings()
+      expect(hasNewVersion.value).toBe(true)
+      dismissVersionNotification()
+      expect(hasNewVersion.value).toBe(false)
+      expect(settings.value.lastVersionSeen).toBe('1.0.0')
     })
   })
 })
