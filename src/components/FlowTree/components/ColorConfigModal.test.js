@@ -2,6 +2,10 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mount } from '@vue/test-utils'
 import ColorConfigModal from './ColorConfigModal.vue'
 
+vi.mock('../../../../package.json', () => ({
+  version: '1.0.0'
+}))
+
 const defaultColors = {
   1: { bg: '#ffffff', border: '#e5e7eb', text: '#111827' },
   2: { bg: '#eff6ff', border: '#bfdbfe', text: '#1e40af' },
@@ -37,7 +41,12 @@ describe('ColorConfigModal', () => {
 
   it('renderiza o título correto', () => {
     const wrapper = mountComponent()
-    expect(wrapper.find('.modal-title').text()).toBe('Configurar Cores')
+    expect(wrapper.find('.modal-title').text()).toBe('Configurações')
+  })
+
+  it('renderiza badge com versão', () => {
+    const wrapper = mountComponent()
+    expect(wrapper.find('.version-badge').text()).toBe('v1.0.0')
   })
 
   it('renderiza seção de níveis para cada nível configurado', () => {
