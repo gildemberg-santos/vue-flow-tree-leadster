@@ -4,16 +4,38 @@ Uma biblioteca para criar árvores de fluxo interativas e dinâmicas utilizando 
 
 ## Instalação
 
-Para instalar a biblioteca, utilize o npm ou yarn:
+Para instalar a biblioteca, utilize uma das opções abaixo:
 
-### Usando npm
+### Usando npm (via npm registry)
 ```bash
 npm install vue-flow-tree-leadster
 ```
 
-### Usando yarn
+### Usando yarn (via npm registry)
 ```bash
 yarn add vue-flow-tree-leadster
+```
+
+### Usando pnpm (via npm registry)
+```bash
+pnpm add vue-flow-tree-leadster
+```
+
+### Instalando diretamente do GitHub
+Se preferir instalar diretamente do repositório GitHub, utilize um dos comandos abaixo:
+
+#### Usando HTTPS
+```bash
+npm install gildemberg-santos/vue-flow-tree-leadster
+yarn add gildemberg-santos/vue-flow-tree-leadster
+pnpm add gildemberg-santos/vue-flow-tree-leadster
+```
+
+#### Usando SSH
+```bash
+npm install git@github.com:gildemberg-santos/vue-flow-tree-leadster.git
+yarn add git@github.com:gildemberg-santos/vue-flow-tree-leadster.git
+pnpm add git@github.com:gildemberg-santos/vue-flow-tree-leadster.git
 ```
 
 Certifique-se de que você tenha o Vue.js instalado no seu projeto antes de adicionar esta biblioteca.
