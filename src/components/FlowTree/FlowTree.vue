@@ -73,6 +73,11 @@
     />
 
     <NotificationToast :save-status="saveStatus" />
+
+    <VersionNotification
+      v-if="hasNewVersion"
+      @dismiss="dismissVersionNotification"
+    />
   </div>
 </template>
 
@@ -95,6 +100,7 @@ import NodeEditModal from './components/NodeEditModal.vue'
 import ColorConfigModal from './components/ColorConfigModal.vue'
 import NotificationToast from './components/NotificationToast.vue'
 import ConnectionOptionModal from './components/ConnectionOptionModal.vue'
+import VersionNotification from './components/VersionNotification.vue'
 
 const props = defineProps({
   onSave: { type: Function, default: null },
@@ -127,7 +133,7 @@ provide('deleteNodeById', deleteNodeById)
 
 const { colors, cssVars, saveColors } = useFlowColors(props.maxLevels)
 const { isDark, themeVars, toggleTheme } = useFlowTheme()
-const { settings, saveSettings } = useFlowSettings()
+const { settings, saveSettings, hasNewVersion, dismissVersionNotification } = useFlowSettings()
 
 const showColorModal = ref(false)
 
