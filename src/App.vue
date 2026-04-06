@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import { FlowTree } from "./components/FlowTree/index.js"
+import FlowTree from "./components/FlowTree/index.js"
 import { save, load, generateId } from "./services/flowStorageService.js"
 import { toRelational, fromRelational } from "./services/flowConverter.js"
 import { enrichNodes, enrichEdges } from "./services/templateEnricher.js"
