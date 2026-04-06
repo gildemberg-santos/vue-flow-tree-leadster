@@ -1,15 +1,11 @@
 {
   "name": "vue-flow-tree-leadster",
-  "version": "1.0.1",
+  "version": "1.0.5",
   "type": "module",
-  "main": "dist/vue-flow-tree-leadster.umd.cjs",
-  "module": "dist/vue-flow-tree-leadster.js",
-  "import": "dist/vue-flow-tree-leadster.js",
+  "main": "./dist/vue-flow-tree-leadster.umd.cjs",
+  "module": "./dist/vue-flow-tree-leadster.js",
   "exports": {
-    ".": {
-      "import": "dist/vue-flow-tree-leadster.js",
-      "require": "dist/vue-flow-tree-leadster.umd.cjs"
-    },
+    ".": "./dist/vue-flow-tree-leadster.umd.cjs",
     "./style.css": "./dist/style.css"
   },
   "files": [

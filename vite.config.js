@@ -20,7 +20,6 @@ export default defineConfig(({ mode }) => ({
       lib: {
         entry: fileURLToPath(new URL("./src/index.js", import.meta.url)),
         name: "VueFlowTreeLeadster",
-        fileName: "vue-flow-tree-leadster",
         formats: ["es", "umd"],
       },
       rollupOptions: {
