@@ -1,143 +1,156 @@
 # Vue Flow Tree Leadster
 
-Uma biblioteca para criar árvores de fluxo interativas e dinâmicas utilizando Vue.js. Ideal para criar fluxos visuais, árvores de decisão e diagramas interativos.
+Uma biblioteca Vue.js para criar árvores de fluxo interativas e dinâmicas. Ideal para fluxos visuais, árvores de decisão e diagramas interativos.
 
 ## Instalação
 
-Para instalar a biblioteca, utilize uma das opções abaixo:
-
-### Usando npm (via npm registry)
 ```bash
 npm install vue-flow-tree-leadster
 ```
 
-### Usando yarn (via npm registry)
 ```bash
 yarn add vue-flow-tree-leadster
 ```
 
-### Usando pnpm (via npm registry)
 ```bash
 pnpm add vue-flow-tree-leadster
 ```
 
-### Instalando diretamente do GitHub
-Se preferir instalar diretamente do repositório GitHub, utilize um dos comandos abaixo:
-
-#### Usando HTTPS
-```bash
-npm install gildemberg-santos/vue-flow-tree-leadster
-yarn add gildemberg-santos/vue-flow-tree-leadster
-pnpm add gildemberg-santos/vue-flow-tree-leadster
-```
-
-#### Usando SSH
-```bash
-npm install git@github.com:gildemberg-santos/vue-flow-tree-leadster.git
-yarn add git@github.com:gildemberg-santos/vue-flow-tree-leadster.git
-pnpm add git@github.com:gildemberg-santos/vue-flow-tree-leadster.git
-```
-
-Certifique-se de que você tenha o Vue.js instalado no seu projeto antes de adicionar esta biblioteca.
+Certifique-se de ter Vue.js 3.4+ instalado no projeto.
 
 ## Como Usar
 
-Aqui está um exemplo básico de como utilizar a biblioteca:
+### Exemplo: Uso Completo
 
-### Exemplo 1: Uso Básico
 ```vue
 <template>
-  <div>
-    <FlowTree :nodes="nodes" :edges="edges" />
-  </div>
+  <FlowTree
+    :templates="flowTemplates"
+    :max-levels="5"
+    :is-admin="true"
+    :on-load="handleLoad"
+    :on-save="handleSave"
+    :on-generate-id="generateId"
+    @save="onSave"
+  />
 </template>
 
-<script>
-import FlowTree from 'vue-flow-tree-leadster';
+<script setup>
+import FlowTree from 'vue-flow-tree-leadster'
 
-export default {
-  components: {
-    FlowTree,
+const flowTemplates = [
+  {
+    id: 'pergunta',
+    label: 'Pergunta',
+    maxConnections: 2,
+    options: [
+      { id: 'sim', label: 'Sim' },
+      { id: 'nao', label: 'Não' }
+    ]
   },
-  data() {
-    return {
-      nodes: [
-        { id: 1, label: 'Início' },
-        { id: 2, label: 'Opção 1' },
-        { id: 3, label: 'Opção 2' },
-      ],
-      edges: [
-        { from: 1, to: 2 },
-        { from: 1, to: 3 },
-      ],
-    };
+  {
+    id: 'acao',
+    label: 'Ação',
+    maxConnections: 1
   },
-};
+  {
+    id: 'final',
+    label: 'Final',
+    maxConnections: 0
+  }
+]
+
+function generateId() {
+  return crypto.randomUUID()
+}
+
+async function handleLoad() {
+  const saved = localStorage.getItem('my-flow')
+  return saved ? JSON.parse(saved) : null
+}
+
+async function handleSave(data) {
+  localStorage.setItem('my-flow', JSON.stringify(data))
+}
+
+function onSave(data) {
+  console.log('Fluxo salvo:', data)
+}
 </script>
 ```
 
-### Exemplo 2: Configuração Avançada
-```vue
-<template>
-  <div>
-    <FlowTree :nodes="nodes" :edges="edges" :options="options" />
-  </div>
-</template>
+## Props
 
-<script>
-import FlowTree from 'vue-flow-tree-leadster';
+| Prop | Tipo | Padrão | Descrição |
+|------|------|--------|------------|
+| `templates` | `Array` | `[]` | Array de templates de nós. |
+| `maxLevels` | `Number` | `3` | Número máximo de níveis (máx: 10). |
+| `isAdmin` | `Boolean` | `false` | Permite selecionar o nível do nó manualmente. |
+| `onLoad` | `Function` | `null` | Carrega dados salvos. Retorna `{ nodes, edges }` ou `null`. |
+| `onSave` | `Function` | `null` | Salva os dados do fluxo. Recebe `{ nodes, edges }`. |
+| `onGenerateId` | `Function` | `null` | Gera IDs únicos para novos nós. |
 
-export default {
-  components: {
-    FlowTree,
-  },
-  data() {
-    return {
-      nodes: [
-        { id: 1, label: 'Início', color: 'blue' },
-        { id: 2, label: 'Opção 1', color: 'green' },
-        { id: 3, label: 'Opção 2', color: 'red' },
-      ],
-      edges: [
-        { from: 1, to: 2 },
-        { from: 1, to: 3 },
-      ],
-      options: {
-        draggable: true,
-        zoomable: true,
-      },
-    };
-  },
-};
-</script>
+## Eventos
+
+| Evento | Dados | Descrição |
+|--------|-------|------------|
+| `save` | `{ nodes, edges }` | Emitido ao salvar o fluxo. |
+
+## Estrutura dos Templates
+
+```javascript
+{
+  id: 'pergunta',           // ID único do template
+  label: 'Pergunta',        // Nome exibido no nó
+  maxConnections: 2,       // Máximo de conexões de saída
+  options: [               // Opções de conexão (opcional)
+    { id: 'sim', label: 'Sim' },
+    { id: 'nao', label: 'Não' }
+  ]
+}
 ```
 
 ## Funcionalidades
 
-- **Criação de Nós e Conexões**: Adicione nós e conecte-os facilmente.
-- **Interatividade**: Suporte para arrastar, soltar e zoom.
-- **Customização**: Personalize cores, estilos e comportamentos.
-- **Integração Simples**: Fácil de integrar com outros componentes Vue.js.
+- **Criação de Nós**: Adicione nós via template ou definindo o nível.
+- **Conexões**: Arraste de um nó para outro para conectar.
+- **Templates com Opções**: Defina opções para guiar o fluxo.
+- **Validação em Tempo Real**: Painel mostra erros e sugestões.
+- **Personalização de Cores**: Configure cores por nível.
+- **Tema Claro/Escuro**: Alterne via toolbar.
+- **Persistência**: Configurações salvas no localStorage.
+- **Notificação de Versão**: Alerta quando há atualização.
 
-## Contribuindo
+## Estrutura de Dados
 
-Se você deseja contribuir com a biblioteca, siga estas etapas:
+```javascript
+// Nós
+{
+  id: 'uuid',
+  label: 'Nome do nó',
+  level: 1,
+  position: { x: 100, y: 200 },
+  templateId: 'pergunta',
+  maxConnections: 2
+}
 
-1. Faça um fork do repositório.
-2. Crie uma nova branch para suas alterações:
-   ```bash
-   git checkout -b minha-nova-funcionalidade
-   ```
-3. Faça commit das suas alterações:
-   ```bash
-   git commit -m "Adiciona nova funcionalidade"
-   ```
-4. Envie suas alterações para o repositório remoto:
-   ```bash
-   git push origin minha-nova-funcionalidade
-   ```
-5. Abra um Pull Request.
+// Conexões
+{
+  id: 'uuid',
+  source: 'id-origem',
+  target: 'id-destino',
+  optionId: 'sim' // opcional
+}
+```
+
+## Contribuição
+
+1. Fork do repositório
+2. Crie uma branch: `git checkout -b minha-funcionalidade`
+3. Commit: `git commit -m 'Minha funcionalidade'`
+4. Push: `git push origin minha-funcionalidade`
+5. Abra um Pull Request
 
 ## Licença
 
-Este projeto está licenciado sob a licença [MIT](LICENSE). Sinta-se à vontade para usá-lo e modificá-lo conforme necessário.
+MIT
