@@ -1,5 +1,1 @@
-export { default as FlowTree } from './FlowTree.vue'
-export { useFlowTree } from './composables/useFlowTree'
-export { useFlowColors } from './composables/useFlowColors'
-export { useFlowTheme } from './composables/useFlowTheme'
-export { useFlowSettings } from './composables/useFlowSettings'
+export { default } from './FlowTree.vue'
