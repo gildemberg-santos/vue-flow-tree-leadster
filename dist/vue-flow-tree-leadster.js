@@ -1616,6 +1616,7 @@ const xn = { class: "modal-form" }, kn = ["value"], hn = ["value"], Cn = ["value
 }, uo = /* @__PURE__ */ w(ro, [["__scopeId", "data-v-19b85436"]]), co = { class: "toolbar" }, vo = {
   __name: "FlowTree",
   props: {
+    fullscreen: { type: Boolean, default: !0 },
     onSave: { type: Function, default: null },
     onLoad: { type: Function, default: null },
     onGenerateId: { type: Function, default: null },
@@ -1672,7 +1673,10 @@ const xn = { class: "modal-form" }, kn = ["value"], hn = ["value"], Cn = ["value
       ne.value = A, Te(), P.value = N, Me(), U.value = !1;
     }
     return (A, N) => (v(), m("div", {
-      class: _(["flow-tree-wrapper", { "panel-hidden": !f(P).showValidationPanel }]),
+      class: _(["flow-tree-wrapper", {
+        "panel-hidden": !f(P).showValidationPanel,
+        fullscreen: t.fullscreen
+      }]),
       style: D({ ...f(oe), ...f(Fe) })
     }, [
       k(Tt, {
@@ -1750,7 +1754,7 @@ const xn = { class: "modal-form" }, kn = ["value"], hn = ["value"], Cn = ["value
       }, null, 8, ["onDismiss"])) : $("", !0)
     ], 6));
   }
-}, bo = /* @__PURE__ */ w(vo, [["__scopeId", "data-v-2e3ecd73"]]);
+}, bo = /* @__PURE__ */ w(vo, [["__scopeId", "data-v-6e336a13"]]);
 export {
   bo as FlowTree,
   bo as default,

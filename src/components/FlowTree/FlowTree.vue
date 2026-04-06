@@ -1,7 +1,10 @@
 <template>
   <div
     class="flow-tree-wrapper"
-    :class="{ 'panel-hidden': !settings.showValidationPanel }"
+    :class="{ 
+      'panel-hidden': !settings.showValidationPanel,
+      'fullscreen': props.fullscreen
+    }"
     :style="{ ...themeVars, ...cssVars }"
   >
     <FlowCanvas
@@ -103,6 +106,7 @@ import ConnectionOptionModal from './components/ConnectionOptionModal.vue'
 import VersionNotification from './components/VersionNotification.vue'
 
 const props = defineProps({
+  fullscreen: { type: Boolean, default: true },
   onSave: { type: Function, default: null },
   onLoad: { type: Function, default: null },
   onGenerateId: { type: Function, default: null },
@@ -149,8 +153,16 @@ function onSaveColors({ colors: newColors, settings: newSettings }) {
 <style scoped>
 .flow-tree-wrapper {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   position: relative;
+}
+
+.flow-tree-wrapper.fullscreen {
+  height: 100vh;
+}
+
+.flow-tree-wrapper:not(.fullscreen) {
+  height: 100%;
 }
 
 .flow-tree-wrapper :deep(.vue-flow) {

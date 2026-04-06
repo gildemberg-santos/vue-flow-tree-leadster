@@ -1,3 +1,4 @@
+import './components/FlowTree/style.css'
 import FlowTree from './components/FlowTree'
 export { FlowTree }
 export { useFlowTree } from './components/FlowTree/composables/useFlowTree'

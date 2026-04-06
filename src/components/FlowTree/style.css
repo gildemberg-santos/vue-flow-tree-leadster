@@ -1,0 +1,20 @@
+.flow-tree-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.flow-tree-wrapper.fullscreen {
+  height: 100vh;
+}
+
+.flow-tree-wrapper:not(.fullscreen) {
+  height: 100%;
+}
+
+.flow-tree-wrapper *,
+.flow-tree-wrapper *::before,
+.flow-tree-wrapper *::after {
+  box-sizing: border-box;
+}
