@@ -1,7 +1,10 @@
 <template>
   <div class="modal-overlay" @click.self="emit('close')">
     <div class="modal">
-      <div class="modal-title">Configurar Cores</div>
+      <div class="modal-header">
+        <div class="modal-title">Configurações</div>
+        <div class="version-badge">v{{ version }}</div>
+      </div>
 
       <div class="modal-body">
         <ColorLevelsSection :draft="draft" :max-levels="maxLevels" />
@@ -22,6 +25,7 @@
 
 <script setup>
 import { reactive } from 'vue'
+import { version } from '../../../../package.json'
 import { buildDefaultColors } from '../config/colorPalette'
 import ColorLevelsSection from './ColorConfigModal/ColorLevelsSection.vue'
 import ViewSettingsSection from './ColorConfigModal/ViewSettingsSection.vue'
@@ -74,11 +78,26 @@ function onSave() {
   max-height: 90vh;
 }
 
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 16px;
+}
+
 .modal-title {
   font-size: 15px;
   font-weight: 600;
-  padding: 20px 24px 16px;
   flex-shrink: 0;
+}
+
+.version-badge {
+  font-size: 11px;
+  color: var(--t-text-muted);
+  background: var(--t-input-bg);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: monospace;
 }
 
 .modal-body {
