@@ -1,9 +1,10 @@
 import { defineConfig } from "vitest/config";
 import vue from "@vitejs/plugin-vue";
+import cssInjectedByJs from "vite-plugin-css-injected-by-js";
 import { fileURLToPath, URL } from "node:url";
 
 export default defineConfig(({ mode }) => ({
-  plugins: [vue()],
+  plugins: [vue(), cssInjectedByJs()],
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
