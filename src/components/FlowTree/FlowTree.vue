@@ -153,16 +153,12 @@ function onSaveColors({ colors: newColors, settings: newSettings }) {
 <style scoped>
 .flow-tree-wrapper {
   width: 100%;
-  min-height: 100vh;
+  height: 100%;
   position: relative;
 }
 
 .flow-tree-wrapper.fullscreen {
   height: 100vh;
-}
-
-.flow-tree-wrapper:not(.fullscreen) {
-  height: 100%;
 }
 
 .flow-tree-wrapper :deep(.vue-flow) {
