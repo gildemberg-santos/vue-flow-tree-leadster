@@ -111,8 +111,8 @@ import { useFullscreen } from '../composables/useFullscreen'
 const { isFullscreen, toggleFullscreen } = useFullscreen()
 </script>
 
-<style>
-.vue-flow__controls {
+<style scoped>
+:deep(.vue-flow__controls) {
   background: var(--t-panel-bg);
   border: 1px solid var(--t-panel-border);
   border-radius: 10px;
@@ -122,9 +122,10 @@ const { isFullscreen, toggleFullscreen } = useFullscreen()
   display: flex;
   flex-direction: column;
   gap: 2px;
+  width: fit-content;
 }
 
-.vue-flow__controls-button {
+:deep(.vue-flow__controls-button) {
   background: transparent;
   border: none;
   border-bottom: none;
@@ -142,26 +143,25 @@ const { isFullscreen, toggleFullscreen } = useFullscreen()
     color 0.15s;
 }
 
-.vue-flow__controls-button:hover {
+:deep(.vue-flow__controls-button:hover) {
   background: var(--t-input-bg);
   color: var(--t-text-primary);
 }
 
-.vue-flow__controls-button:active {
+:deep(.vue-flow__controls-button:active) {
   background: #2b6cb0;
   color: #fff;
 }
 
-.vue-flow__controls-button svg {
+:deep(.vue-flow__controls-button svg) {
   width: 14px;
   height: 14px;
   max-width: 14px;
   max-height: 14px;
 }
 
-.vue-flow__controls-button:disabled {
+:deep(.vue-flow__controls-button:disabled) {
   opacity: 0.3;
   pointer-events: none;
 }
-
 </style>
